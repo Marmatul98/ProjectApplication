@@ -16,11 +16,13 @@ namespace ProjectManager.DAL
         public DbSet<Project> Projects { get; set; }
         public DbSet<Student> Students { get; set; }
 
-        public DbSet<KeywordInProject> KeywordInProjects { get; set; }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Project>()
+             .HasMany(p => p.Keywords).WithMany(i => i.Projects)
+             .Map(t => t.MapLeftKey("ProjectID")
+                 .MapRightKey("KeywordID")
+                 .ToTable("ProjectKeyword"));
         }
 
     }

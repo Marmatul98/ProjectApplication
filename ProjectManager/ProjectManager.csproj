@@ -137,7 +137,6 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Keyword.cs" />
-    <Compile Include="Models\KeywordInProject.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -183,16 +182,16 @@
     <Content Include="Views\Students\Details.cshtml" />
     <Content Include="Views\Students\Edit.cshtml" />
     <Content Include="Views\Students\Index.cshtml" />
-    <Content Include="Views\Keywords\Create.cshtml" />
-    <Content Include="Views\Keywords\Delete.cshtml" />
-    <Content Include="Views\Keywords\Details.cshtml" />
-    <Content Include="Views\Keywords\Edit.cshtml" />
-    <Content Include="Views\Keywords\Index.cshtml" />
     <Content Include="Views\Projects\Create.cshtml" />
     <Content Include="Views\Projects\Delete.cshtml" />
     <Content Include="Views\Projects\Details.cshtml" />
     <Content Include="Views\Projects\Edit.cshtml" />
     <Content Include="Views\Projects\Index.cshtml" />
+    <Content Include="Views\Keywords\Create.cshtml" />
+    <Content Include="Views\Keywords\Delete.cshtml" />
+    <Content Include="Views\Keywords\Details.cshtml" />
+    <Content Include="Views\Keywords\Edit.cshtml" />
+    <Content Include="Views\Keywords\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
