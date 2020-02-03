@@ -26,32 +26,43 @@
         <th>
             @Html.DisplayNameFor(model => model.ProjectCourse)
         </th>
+        <th>
+            Keywords
+        </th>
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Student.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Year)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.ProjectCourse)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ProjectID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ProjectID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ProjectID })
-        </td>
-    </tr>
+<tr>
+    <td>
+        @Html.DisplayFor(modelItem => item.Student.FirstName)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Title)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Description)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.Year)
+    </td>
+    <td>
+        @Html.DisplayFor(modelItem => item.ProjectCourse)
+    </td>
+    <td>
+        @{
+            foreach (var keyword in item.Keywords)
+            {
+                @keyword.KeywordID @:  @keyword.Name <br />
+            }
+        }
+    </td>
+    <td>
+        @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
+        @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) |
+        @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })
+    </td>
+</tr>
 }
 
 </table>
