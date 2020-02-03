@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
 
@@ -14,6 +15,7 @@ namespace ProjectManager.Models
 
     public class Project
     {
+        
         public int ProjectID { get; set; }
 
         public string Title { get; set; }
@@ -28,7 +30,7 @@ namespace ProjectManager.Models
 
         public virtual Student Student { get; set; }
 
-        public virtual ICollection<Keyword> Keywords { get; set; }
+        public virtual ICollection<KeywordInProject> KeywordsInProject { get; set; }
 
     }
 }

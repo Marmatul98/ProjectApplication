@@ -1,4 +1,11 @@
 {
-  "ExpandedNodes": [],
+  "ExpandedNodes": [
+    "",
+    "\\ProjectManager",
+    "\\ProjectManager\\Models",
+    "\\ProjectManager\\Views",
+    "\\ProjectManager\\Views\\Keywords"
+  ],
+  "SelectedNode": "\\ProjectManager",
   "PreviewInSolutionExplorer": false
 }

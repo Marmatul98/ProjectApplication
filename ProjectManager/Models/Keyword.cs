@@ -11,6 +11,6 @@ namespace ProjectManager.Models
 
         public string Name { get; set; }
 
-        public virtual ICollection<Project> Projects { get; set; }
+        public virtual ICollection<KeywordInProject> KeywordsInProjects { get; set; }
     }
 }

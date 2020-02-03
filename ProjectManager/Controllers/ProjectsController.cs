@@ -40,7 +40,7 @@ namespace ProjectManager.Controllers
         // GET: Projects/Create
         public ActionResult Create()
         {
-            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "Name");
+            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName");
             return View();
         }
 
@@ -58,7 +58,7 @@ namespace ProjectManager.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "Name", project.StudentID);
+            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName", project.StudentID);
             return View(project);
         }
 
@@ -74,7 +74,7 @@ namespace ProjectManager.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "Name", project.StudentID);
+            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName", project.StudentID);
             return View(project);
         }
 
@@ -91,7 +91,7 @@ namespace ProjectManager.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "Name", project.StudentID);
+            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName", project.StudentID);
             return View(project);
         }
 
