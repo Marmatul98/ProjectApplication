@@ -23,7 +23,8 @@ namespace ProjectManager.Models
 
         public string Description { get; set; }
 
-        public int Year { get; set; }
+        public int YearID { get; set; }
+        public virtual Year Year { get; set; }
 
         public ProjectCourse ProjectCourse { get; set; }
 
@@ -32,6 +33,5 @@ namespace ProjectManager.Models
         public virtual Student Student { get; set; }
 
         public virtual ICollection<Keyword> Keywords { get; set; }
-
     }
 }

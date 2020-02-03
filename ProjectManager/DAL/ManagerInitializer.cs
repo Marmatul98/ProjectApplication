@@ -19,6 +19,15 @@ namespace ProjectManager.DAL
             students.ForEach(s => context.Students.Add(s));
             context.SaveChanges();
 
+            var years = new List<Year>
+            {
+                new Year{YearValue = 2019}
+            };
+
+            years.ForEach(y => context.Years.Add(y));
+            context.SaveChanges();
+
+
             var keywords = new List<Keyword>
            {
                new Keyword{Name = "car"},
@@ -30,9 +39,12 @@ namespace ProjectManager.DAL
 
             var projects = new List<Project>
            {
-               new Project{Title = "TestTitle" , Description = "TestDescription", ProjectCourse = ProjectCourse.UMINT, Year = 2019,
+               new Project{Title = "TestTitle" , Description = "TestDescription", ProjectCourse = ProjectCourse.UMINT,
+                   YearID = years.Single( y => y.YearValue == 2019).YearID,
                    StudentID = students.Single( s => s.PersonalNumber == "R18439").StudentID, Keywords = new List<Keyword>()},
-               new Project{Title = "TestTitle2" , Description = "TestDescription2", ProjectCourse = ProjectCourse.SOFTCO, Year = 2018,
+               
+                new Project{Title = "TestTitle2" , Description = "TestDescription2", ProjectCourse = ProjectCourse.SOFTCO,
+               YearID = years.Single( y => y.YearValue == 2019).YearID,
                StudentID = students.Single( s => s.PersonalNumber == "R18435").StudentID, Keywords = new List<Keyword>()},
            };
 

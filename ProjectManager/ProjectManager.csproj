@@ -129,8 +129,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KeywordsController.cs" />
+    <Compile Include="Controllers\ProjectController.cs" />
     <Compile Include="Controllers\ProjectsController.cs" />
     <Compile Include="Controllers\StudentsController.cs" />
+    <Compile Include="Controllers\YearsController.cs" />
     <Compile Include="DAL\ManagerContext.cs" />
     <Compile Include="DAL\ManagerInitializer.cs" />
     <Compile Include="Global.asax.cs">
@@ -139,6 +141,7 @@
     <Compile Include="Models\Keyword.cs" />
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Student.cs" />
+    <Compile Include="Models\Year.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -192,6 +195,16 @@
     <Content Include="Views\Keywords\Details.cshtml" />
     <Content Include="Views\Keywords\Edit.cshtml" />
     <Content Include="Views\Keywords\Index.cshtml" />
+    <Content Include="Views\Project\Create.cshtml" />
+    <Content Include="Views\Project\Delete.cshtml" />
+    <Content Include="Views\Project\Details.cshtml" />
+    <Content Include="Views\Project\Edit.cshtml" />
+    <Content Include="Views\Project\Index.cshtml" />
+    <Content Include="Views\Years\Create.cshtml" />
+    <Content Include="Views\Years\Delete.cshtml" />
+    <Content Include="Views\Years\Details.cshtml" />
+    <Content Include="Views\Years\Edit.cshtml" />
+    <Content Include="Views\Years\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

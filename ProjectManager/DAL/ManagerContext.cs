@@ -15,6 +15,7 @@ namespace ProjectManager.DAL
         public DbSet<Keyword> Keywords { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Year> Years { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
