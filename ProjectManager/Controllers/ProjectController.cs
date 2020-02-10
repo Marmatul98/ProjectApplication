@@ -18,7 +18,7 @@ namespace ProjectManager.Controllers
         // GET: Project
         public ActionResult Index()
         {
-            var projects = db.Projects.Include(p => p.Student);
+            var projects = db.Projects.Include(p => p.Course).Include(p => p.Student).Include(p => p.Year);
             return View(projects.ToList());
         }
 
@@ -40,7 +40,9 @@ namespace ProjectManager.Controllers
         // GET: Project/Create
         public ActionResult Create()
         {
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Name");
             ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName");
+            ViewBag.YearID = new SelectList(db.Years, "YearID", "YearID");
             return View();
         }
 
@@ -49,7 +51,7 @@ namespace ProjectManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProjectID,Title,Description,Year,ProjectCourse,StudentID")] Project project)
+        public ActionResult Create([Bind(Include = "ProjectID,Title,Description,YearID,CourseID,StudentID")] Project project)
         {
             if (ModelState.IsValid)
             {
@@ -58,7 +60,9 @@ namespace ProjectManager.Controllers
                 return RedirectToAction("Index");
             }
 
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Name", project.CourseID);
             ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName", project.StudentID);
+            ViewBag.YearID = new SelectList(db.Years, "YearID", "YearID", project.YearID);
             return View(project);
         }
 
@@ -74,7 +78,9 @@ namespace ProjectManager.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Name", project.CourseID);
             ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName", project.StudentID);
+            ViewBag.YearID = new SelectList(db.Years, "YearID", "YearID", project.YearID);
             return View(project);
         }
 
@@ -83,16 +89,18 @@ namespace ProjectManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProjectID,Title,Description,Year,ProjectCourse,StudentID")] Project project)
+        public ActionResult Edit([Bind(Include = "ProjectID,Title,Description,YearID,CourseID,StudentID")] Project project)
         {
             if (ModelState.IsValid)
             {
                 db.Entry(project).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Course", new { id = project.CourseID });
             }
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Name", project.CourseID);
             ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName", project.StudentID);
-            return View(project);
+            ViewBag.YearID = new SelectList(db.Years, "YearID", "YearID", project.YearID);
+            return RedirectToAction("Details", "Course", new { id = project.CourseID });
         }
 
         // GET: Project/Delete/5
@@ -118,7 +126,7 @@ namespace ProjectManager.Controllers
             Project project = db.Projects.Find(id);
             db.Projects.Remove(project);
             db.SaveChanges();
-            return RedirectToAction("Index");
+            return RedirectToAction("Details", "Course", new { id = project.CourseID });
         }
 
         protected override void Dispose(bool disposing)

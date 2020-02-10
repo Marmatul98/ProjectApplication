@@ -11,11 +11,27 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.Student.FirstName)
+            Course
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Student.FirstName)
+            @Html.DisplayFor(model => model.Course.Name)
+        </dd>
+
+        <dt>
+            Student
+        </dt>
+
+        <dd>
+            @Html.ActionLink(Model.Student.Name, "Details", "Student", new { id = Model.StudentID }, null) @Html.DisplayFor(model => model.Student.PersonalNumber)
+        </dd>
+
+        <dt>
+            Year
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year.YearValue)
         </dd>
 
         <dt>
@@ -35,24 +51,22 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Year)
+            Keywords
         </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Year)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.ProjectCourse)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.ProjectCourse)
-        </dd>
+        
+            @foreach(var item in Model.Keywords)
+            {
+    <dd>
+        @Html.DisplayFor(modelItem => item.Name)
+    </dd>
+                
+            }      
+        
 
     </dl>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectID }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to list", "Details", "Course", new { id = Model.CourseID }, null)
 </p>

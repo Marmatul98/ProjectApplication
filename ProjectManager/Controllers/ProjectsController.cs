@@ -44,6 +44,7 @@ namespace ProjectManager.Controllers
         {
             var project = new Project();
             ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName");
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Name");
             ViewBag.YearID = new SelectList(db.Years, "YearID", "YearValue");
             project.Keywords = new List<Keyword>();
             PopulateAssignedKeywordData(project);
@@ -55,7 +56,7 @@ namespace ProjectManager.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProjectID,Title,Description,YearID,ProjectCourse,StudentID")] Project project, string[] selectedKeywords)
+        public ActionResult Create([Bind(Include = "ProjectID,Title,Description,YearID,CourseID,StudentID")] Project project, string[] selectedKeywords)
         {
             if (selectedKeywords != null)
             {
@@ -74,6 +75,7 @@ namespace ProjectManager.Controllers
             }
             PopulateAssignedKeywordData(project);
             ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName", project.StudentID);
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Name", project.CourseID);
             ViewBag.YearID = new SelectList(db.Years, "YearID", "YearValue", project.YearID);
             return View(project);
         }
@@ -96,6 +98,8 @@ namespace ProjectManager.Controllers
                 return HttpNotFound();
             }
             ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName", project.StudentID);
+            ViewBag.YearID = new SelectList(db.Years, "YearID", "YearValue", project.YearID);
+            ViewBag.CourseID = new SelectList(db.Courses, "CourseID", "Name", project.CourseID);
             return View(project);
         }
         private void PopulateAssignedKeywordData(Project project)
@@ -132,7 +136,7 @@ namespace ProjectManager.Controllers
                .Where(i => i.ProjectID == id)
                .Single();
 
-            if (TryUpdateModel(projectToUpdate, "", new string[] { "Title", "Description", "Year", "ProjectCourse", "Student" }))
+            if (TryUpdateModel(projectToUpdate, "", new string[] { "Title", "Description", "Year", "Course", "Student" }))
             {
                 try
                 {                 

@@ -37,13 +37,36 @@ namespace ProjectManager.DAL
             keywords.ForEach(k => context.Keywords.Add(k));
             context.SaveChanges();
 
+            var courses = new List<Course>
+           {
+               new Course{Name = "UMINT"},
+               new Course{Name = "SOFTCO"}
+           };
+
+            courses.ForEach(c => context.Courses.Add(c));
+            context.SaveChanges();
+
             var projects = new List<Project>
            {
-               new Project{Title = "TestTitle" , Description = "TestDescription", ProjectCourse = ProjectCourse.UMINT,
+               new Project{Title = "TestTitle" , Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut enim ad minim veniam, " +
+               "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." +
+               "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. " +
+               "Praesent dapibus. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus " +
+               "asperiores repellat. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy ac, erat. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit " +
+               "aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Praesent id justo in neque elementum ultrices. " +
+               "Etiam posuere lacus quis dolor.",
+                   CourseID = courses.Single(c => c.Name == "UMINT").CourseID,
                    YearID = years.Single( y => y.YearValue == 2019).YearID,
                    StudentID = students.Single( s => s.PersonalNumber == "R18439").StudentID, Keywords = new List<Keyword>()},
                
-                new Project{Title = "TestTitle2" , Description = "TestDescription2", ProjectCourse = ProjectCourse.SOFTCO,
+                new Project{Title = "TestTitle2" , Description = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Ut enim ad minim veniam, " +
+               "quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat." +
+               "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. " +
+               "Praesent dapibus. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus " +
+               "asperiores repellat. Vestibulum erat nulla, ullamcorper nec, rutrum non, nonummy ac, erat. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit " +
+               "aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Praesent id justo in neque elementum ultrices. " +
+               "Etiam posuere lacus quis dolor.",
+                CourseID = courses.Single(c => c.Name == "SOFTCO").CourseID,
                YearID = years.Single( y => y.YearValue == 2019).YearID,
                StudentID = students.Single( s => s.PersonalNumber == "R18435").StudentID, Keywords = new List<Keyword>()},
            };
