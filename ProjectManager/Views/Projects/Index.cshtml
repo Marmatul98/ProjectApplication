@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Projects</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -12,57 +12,45 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Student.FirstName)
+            Course
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Title)
         </th>
+
         <th>
-            @Html.DisplayNameFor(model => model.Description)
+            Student
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Year)
+            Year
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Course.Name)
-        </th>
-        <th>
-            Keywords
-        </th>
+
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-<tr>
-    <td>
-        @Html.DisplayFor(modelItem => item.Student.FirstName)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Title)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Description)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Year)
-    </td>
-    <td>
-        @Html.DisplayFor(modelItem => item.Course.Name)
-    </td>
-    <td>
-        @{
-            foreach (var keyword in item.Keywords)
-            {
-                @keyword.KeywordID @:  @keyword.Name <br />
-            }
-        }
-    </td>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Course.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Title)
+            </td>
+
+            <td>
+                @Html.ActionLink(item.Student.Name, "Details", "Student", new { id = item.StudentID }, null)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Year.YearValue)
+            </td>
+
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ProjectID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ProjectID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ProjectID })
+            </td>
+        </tr>
+    }
 
 </table>
