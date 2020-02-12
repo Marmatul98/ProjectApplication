@@ -1,0 +1,82 @@
+﻿@model ProjectManager.Models.Project
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Project</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Course
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Course.Name)
+        </dd>
+
+        <dt>
+            Student
+        </dt>
+
+        <dd>
+            @if (ViewBag.IsAuth)
+            {
+                @Html.ActionLink(Model.Student.Name, "Details", "Student", new { id = Model.StudentID }, null) @Html.DisplayFor(model => model.Student.PersonalNumber)
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.Student.Name)
+            }
+        </dd>
+
+        <dt>
+            Year
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Year.YearValue)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Title)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Title)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            Keywords
+        </dt>
+
+        
+            @foreach(var item in Model.Keywords)
+            {
+    <dd>
+        @Html.DisplayFor(modelItem => item.Name)
+    </dd>
+                
+            }      
+        
+
+    </dl>
+</div>
+<p>
+    @if (ViewBag.IsAuth)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectID })  @:|
+    }
+    @Html.ActionLink("Back to projects", "Details", "Course", new { id = Model.CourseID }, null)
+</p>

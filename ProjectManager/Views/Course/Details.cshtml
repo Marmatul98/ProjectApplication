@@ -1,0 +1,76 @@
+﻿@model ProjectManager.Models.Course
+
+@{
+    ViewBag.Title = Model.Name;
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>@Model.Name</h4>
+    <hr />
+    <table class="table">
+        <tr>
+            <th>
+                Course
+            </th>
+            <th>
+                Title
+            </th>
+
+            <th>
+                Student
+            </th>
+            <th>
+                Year
+            </th>
+        </tr>
+        @{
+            List<ProjectManager.Models.Project> projects = ViewBag.Projects;
+            foreach (var project in projects)
+            {
+                <tr>
+                    <td>
+                        @project.Course.Name
+                    </td>
+                    <td>
+                        @project.Title
+                    </td>
+                    <td>
+                        @if (ViewBag.IsAuth)
+                        {
+                            @Html.ActionLink(project.Student.Name, "Details", "Student", new { id = project.StudentID }, null)
+                        }
+                        else
+                        {
+                            @project.Student.Name
+                        }
+                    </td>
+                    <td>
+                        @project.Year.YearValue
+                    </td>
+                    <td>
+                        @if (ViewBag.IsAuth)
+                        {
+                            @Html.ActionLink("Edit", "Edit", "Project", new { id = project.ProjectID }, null) @:|
+                        }
+                        @Html.ActionLink("Details", "Details", "Project", new { id = project.ProjectID }, null)
+
+                        @if (ViewBag.IsAuth)
+                        {
+                           @:| @Html.ActionLink("Delete", "Delete", "Project", new { id = project.ProjectID }, null)
+                        }
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+
+</div>
+<p>
+    @if (ViewBag.IsAuth)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.CourseID }) @:|
+    }
+    @Html.ActionLink("Back to Courses", "Index")
+</p>

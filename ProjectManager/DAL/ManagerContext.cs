@@ -15,13 +15,19 @@ namespace ProjectManager.DAL
         public DbSet<Keyword> Keywords { get; set; }
         public DbSet<Project> Projects { get; set; }
         public DbSet<Student> Students { get; set; }
+        public DbSet<Year> Years { get; set; }
 
-        public DbSet<KeywordInProject> KeywordInProjects { get; set; }
+        public DbSet<User> Users { get; set; }
+
+        public DbSet<Course> Courses { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Project>()
+             .HasMany(p => p.Keywords).WithMany(i => i.Projects)
+             .Map(t => t.MapLeftKey("ProjectID")
+                 .MapRightKey("KeywordID")
+                 .ToTable("ProjectKeyword"));
         }
-
     }
 }
