@@ -16,12 +16,15 @@ namespace ProjectManager.Controllers
         private ManagerContext db = new ManagerContext();
 
         // GET: Students
+        [Authorize]
         public ActionResult Index()
         {
+            bool isAuthenticated = User.Identity.IsAuthenticated;
             return View(db.Students.ToList());
         }
 
         // GET: Students/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +40,7 @@ namespace ProjectManager.Controllers
         }
 
         // GET: Students/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -45,6 +49,7 @@ namespace ProjectManager.Controllers
         // POST: Students/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "FirstName,LastName,Email,PersonalNumber")] Student student)
@@ -67,6 +72,7 @@ namespace ProjectManager.Controllers
         }
 
         // GET: Students/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -84,6 +90,7 @@ namespace ProjectManager.Controllers
         // POST: Students/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "StudentID,FirstName,LastName,Email,PersonalNumber")] Student student)
@@ -98,6 +105,7 @@ namespace ProjectManager.Controllers
         }
 
         // GET: Students/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -113,6 +121,7 @@ namespace ProjectManager.Controllers
         }
 
         // POST: Students/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

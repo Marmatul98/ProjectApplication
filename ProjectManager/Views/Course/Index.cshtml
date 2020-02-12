@@ -7,7 +7,10 @@
 <h2>Index</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @if (ViewBag.IsAuth)
+    {
+        @Html.ActionLink("Create New", "Create")
+    }
 </p>
 <table class="table">
     <tr>
@@ -23,9 +26,15 @@
             @Html.DisplayFor(modelItem => item.Name)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.CourseID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.CourseID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.CourseID })
+            @if (ViewBag.IsAuth)
+            {
+                @Html.ActionLink("Edit", "Edit", new { id = item.CourseID }) @:|
+            }
+            @Html.ActionLink("Projects", "Details", new { id = item.CourseID })
+            @if (ViewBag.IsAuth)
+            {
+                @:| @Html.ActionLink("Delete", "Delete", new { id = item.CourseID })
+            }
         </td>
     </tr>
 }

@@ -8,9 +8,11 @@ namespace ProjectManager.Controllers
 {
     public class HomeController : Controller
     {
+
+        [Authorize]
         public ActionResult Index()
         {
-            return View();
+           return RedirectToAction("Index", "Course", null);
         }
 
         public ActionResult About()

@@ -18,6 +18,7 @@ namespace ProjectManager.Controllers
         private ManagerContext db = new ManagerContext();
 
         // GET: Projects
+        [Authorize]
         public ActionResult Index()
         {
             var projects = db.Projects.Include(p => p.Student);
@@ -25,6 +26,7 @@ namespace ProjectManager.Controllers
         }
 
         // GET: Projects/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -40,6 +42,7 @@ namespace ProjectManager.Controllers
         }
 
         // GET: Projects/Create
+        [Authorize]
         public ActionResult Create()
         {
             var project = new Project();
@@ -54,6 +57,7 @@ namespace ProjectManager.Controllers
         // POST: Projects/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProjectID,Title,Description,YearID,CourseID,StudentID")] Project project, string[] selectedKeywords)
@@ -81,6 +85,7 @@ namespace ProjectManager.Controllers
         }
 
         // GET: Projects/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -122,6 +127,7 @@ namespace ProjectManager.Controllers
         // POST: Projects/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int? id, string[] selectedKeywords)
@@ -152,15 +158,6 @@ namespace ProjectManager.Controllers
             }
             PopulateAssignedKeywordData(projectToUpdate);
             return View(projectToUpdate);
-
-            /*if (ModelState.IsValid)
-            {
-                db.Entry(project).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName", project.StudentID);
-            return View(project);*/
         }
 
         private void UpdateProjectKeywords(string[] selectedKeywords, Project projectToUpdate)
@@ -194,6 +191,7 @@ namespace ProjectManager.Controllers
         }
 
         // GET: Projects/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -209,6 +207,7 @@ namespace ProjectManager.Controllers
         }
 
         // POST: Projects/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

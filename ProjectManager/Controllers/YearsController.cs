@@ -16,12 +16,14 @@ namespace ProjectManager.Controllers
         private ManagerContext db = new ManagerContext();
 
         // GET: Years
+        [Authorize]
         public ActionResult Index()
         {
             return View(db.Years.ToList());
         }
 
         // GET: Years/Details/5
+        [Authorize]
         public ActionResult Details(int? id)
         {
             if (id == null)
@@ -37,6 +39,7 @@ namespace ProjectManager.Controllers
         }
 
         // GET: Years/Create
+        [Authorize]
         public ActionResult Create()
         {
             return View();
@@ -45,6 +48,7 @@ namespace ProjectManager.Controllers
         // POST: Years/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "YearID,YearValue")] Year year)
@@ -60,6 +64,7 @@ namespace ProjectManager.Controllers
         }
 
         // GET: Years/Edit/5
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -77,6 +82,7 @@ namespace ProjectManager.Controllers
         // POST: Years/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "YearID,YearValue")] Year year)
@@ -91,6 +97,7 @@ namespace ProjectManager.Controllers
         }
 
         // GET: Years/Delete/5
+        [Authorize]
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -106,6 +113,7 @@ namespace ProjectManager.Controllers
         }
 
         // POST: Years/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
