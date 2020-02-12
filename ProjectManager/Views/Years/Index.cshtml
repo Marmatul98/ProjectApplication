@@ -16,12 +16,18 @@
         </th>
         <th></th>
     </tr>
-    <td>
-        @Html.ActionLink("Edit", "Edit", new { id = item.YearID }) |
-        @Html.ActionLink("Details", "Details", new { id = item.YearID }) |
-        @Html.ActionLink("Delete", "Delete", new { id = item.YearID })
-    </td>
-</tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.YearValue)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.YearID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.YearID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.YearID })
+            </td>
+        </tr>
+    }
 
 </table>

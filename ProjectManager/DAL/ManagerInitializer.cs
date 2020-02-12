@@ -10,6 +10,14 @@ namespace ProjectManager.DAL
     {
         protected override void Seed(ManagerContext context)
         {
+            var users = new List<User>
+            {
+                new User{UserName = "admin", Password = "admin"}
+            };
+
+            users.ForEach(u => context.Users.Add(u));
+            context.SaveChanges();
+
             var students = new List<Student>
            {
                new Student{FirstName = "Marek", LastName = "Matula", Email = "r18439@student.osu.cz", PersonalNumber = "R18439"},

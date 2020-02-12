@@ -23,7 +23,14 @@
         </dt>
 
         <dd>
-            @Html.ActionLink(Model.Student.Name, "Details", "Student", new { id = Model.StudentID }, null) @Html.DisplayFor(model => model.Student.PersonalNumber)
+            @if (ViewBag.IsAuth)
+            {
+                @Html.ActionLink(Model.Student.Name, "Details", "Student", new { id = Model.StudentID }, null) @Html.DisplayFor(model => model.Student.PersonalNumber)
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.Student.Name)
+            }
         </dd>
 
         <dt>
@@ -67,6 +74,9 @@
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectID }) |
-    @Html.ActionLink("Back to list", "Details", "Course", new { id = Model.CourseID }, null)
+    @if (ViewBag.IsAuth)
+    {
+        @Html.ActionLink("Edit", "Edit", new { id = Model.ProjectID })  @:|
+    }
+    @Html.ActionLink("Back to projects", "Details", "Course", new { id = Model.CourseID }, null)
 </p>

@@ -31,6 +31,7 @@ namespace ProjectManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            ViewBag.IsAuth = User.Identity.IsAuthenticated;
             Project project = db.Projects.Find(id);
             if (project == null)
             {
@@ -40,6 +41,7 @@ namespace ProjectManager.Controllers
         }
 
         // GET: Project/Create
+        [Authorize]
         public ActionResult Create()
         {
             Project project = new Project();
@@ -54,6 +56,7 @@ namespace ProjectManager.Controllers
         // POST: Project/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "ProjectID,Title,Description,YearID,CourseID,StudentID")] Project project, string[] selectedKeywords)
@@ -80,7 +83,8 @@ namespace ProjectManager.Controllers
             return View(project);
         }
 
-        // GET: Project/Edit/5
+        // GET: Project/Edit/5\
+        [Authorize]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -105,6 +109,7 @@ namespace ProjectManager.Controllers
         // POST: Project/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int? id, string[] selectedKeywords)
@@ -137,8 +142,9 @@ namespace ProjectManager.Controllers
             return View(projectToUpdate);
         }
 
-            // GET: Project/Delete/5
-            public ActionResult Delete(int? id)
+        // GET: Project/Delete/5
+        [Authorize]
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {
@@ -153,6 +159,7 @@ namespace ProjectManager.Controllers
         }
 
         // POST: Project/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

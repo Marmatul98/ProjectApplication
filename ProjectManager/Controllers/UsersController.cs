@@ -11,18 +11,18 @@ using ProjectManager.Models;
 
 namespace ProjectManager.Controllers
 {
-    public class KeywordsController : Controller
+    public class UsersController : Controller
     {
         private ManagerContext db = new ManagerContext();
 
-        // GET: Keywords
+        // GET: Users
         [Authorize]
         public ActionResult Index()
         {
-            return View(db.Keywords.ToList());
+            return View(db.Users.ToList());
         }
 
-        // GET: Keywords/Details/5
+        // GET: Users/Details/5
         [Authorize]
         public ActionResult Details(int? id)
         {
@@ -30,40 +30,40 @@ namespace ProjectManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Keyword keyword = db.Keywords.Find(id);
-            if (keyword == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(keyword);
+            return View(user);
         }
 
-        // GET: Keywords/Create
+        // GET: Users/Create
         [Authorize]
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: Keywords/Create
+        // POST: Users/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "KeywordID,Name")] Keyword keyword)
+        public ActionResult Create([Bind(Include = "UserID,UserName,Password")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Keywords.Add(keyword);
+                db.Users.Add(user);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
 
-            return View(keyword);
+            return View(user);
         }
 
-        // GET: Keywords/Edit/5
+        // GET: Users/Edit/5
         [Authorize]
         public ActionResult Edit(int? id)
         {
@@ -71,32 +71,32 @@ namespace ProjectManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Keyword keyword = db.Keywords.Find(id);
-            if (keyword == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(keyword);
+            return View(user);
         }
 
-        // POST: Keywords/Edit/5
+        // POST: Users/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "KeywordID,Name")] Keyword keyword)
+        public ActionResult Edit([Bind(Include = "UserID,UserName,Password")] User user)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(keyword).State = EntityState.Modified;
+                db.Entry(user).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(keyword);
+            return View(user);
         }
 
-        // GET: Keywords/Delete/5
+        // GET: Users/Delete/5
         [Authorize]
         public ActionResult Delete(int? id)
         {
@@ -104,22 +104,22 @@ namespace ProjectManager.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Keyword keyword = db.Keywords.Find(id);
-            if (keyword == null)
+            User user = db.Users.Find(id);
+            if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(keyword);
+            return View(user);
         }
 
-        // POST: Keywords/Delete/5
+        // POST: Users/Delete/5
         [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Keyword keyword = db.Keywords.Find(id);
-            db.Keywords.Remove(keyword);
+            User user = db.Users.Find(id);
+            db.Users.Remove(user);
             db.SaveChanges();
             return RedirectToAction("Index");
         }
