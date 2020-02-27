@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ProjectManager.DAL;
 using ProjectManager.Models;
+using ProjectManager.ViewModels;
 
 namespace ProjectManager.Controllers
 {
@@ -23,22 +24,62 @@ namespace ProjectManager.Controllers
         }
 
         // GET: Course/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, string[] selectedKeywords)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             ViewBag.IsAuth = User.Identity.IsAuthenticated;
             Course course = db.Courses.Find(id);
+
+            List<Project> projects = course.Projects.ToList();
+            ISet<Project> wantedProjects = new HashSet<Project>();
+            List<Keyword> filteredKeywords = new List<Keyword>();
+
+            if (selectedKeywords == null)
+            {
+                wantedProjects = projects.ToHashSet();
+                ViewBag.AvailableKeywords = GetAvailableKeywords(course.Projects.ToList(), new string[] { });
+            }
+            else
+            {
+                foreach (var project in projects)
+                {
+                    foreach (var keyword in project.Keywords)
+                    {
+                        if (selectedKeywords.ToList().Contains(keyword.KeywordID.ToString()))
+                        {
+                            wantedProjects.Add(project);
+                        }
+                    }
+                }
+                ViewBag.AvailableKeywords = GetAvailableKeywords(course.Projects.ToList(), selectedKeywords);
+            }
+
+          
             GetUsedYears(course);
-            ViewBag.Projects = course.Projects.ToList();
+            ViewBag.Projects = wantedProjects;
+            
             if (course == null)
             {
                 return HttpNotFound();
             }
             return View(course);
+
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Filter(string[] selectedKeywords)
+        {
+
+            return View();
+
+        }
+
+
 
         // GET: Course/Create
         [Authorize]
@@ -144,6 +185,21 @@ namespace ProjectManager.Controllers
                 usedYears.Add(item.YearValue);
             }
             ViewBag.Years = usedYears;
+        }
+
+        private ICollection<AssignedKeyword> GetAvailableKeywords(List<Project> projects, string[] selectedKeywords)
+        {
+            ISet<AssignedKeyword> returnedList = new HashSet<AssignedKeyword>();
+            foreach (var project in projects)
+            {
+                foreach (var keyword in project.Keywords)
+                {
+                    AssignedKeyword assignedKeyword = new AssignedKeyword() { Name = keyword.Name, KeywordID = keyword.KeywordID };
+                    assignedKeyword.Assigned = selectedKeywords.Contains(keyword.KeywordID.ToString());
+                    returnedList.Add(assignedKeyword);
+                }
+            }
+            return returnedList;
         }
     }
 }
