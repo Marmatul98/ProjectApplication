@@ -57,7 +57,7 @@ namespace ProjectManager.Controllers
             {
                 db.Keywords.Add(keyword);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Project");
             }
 
             return View(keyword);

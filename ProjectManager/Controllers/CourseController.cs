@@ -74,9 +74,7 @@ namespace ProjectManager.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Filter(string[] selectedKeywords)
         {
-
             return View();
-
         }
 
 
@@ -100,7 +98,7 @@ namespace ProjectManager.Controllers
             {
                 db.Courses.Add(course);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Project");
             }
 
             return View(course);
