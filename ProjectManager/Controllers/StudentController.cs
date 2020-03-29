@@ -59,7 +59,7 @@ namespace ProjectManager.Controllers
             {
                 db.Students.Add(student);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Project");
             }
 
             return View(student);

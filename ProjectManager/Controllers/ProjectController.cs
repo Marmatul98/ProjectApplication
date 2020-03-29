@@ -50,7 +50,16 @@ namespace ProjectManager.Controllers
             ViewBag.YearID = new SelectList(db.Years, "YearID", "YearValue");
             project.Keywords = new List<Keyword>();
             PopulateAssignedKeywordData(project);
-            return View();
+
+            if (Session["Title"] != null)
+            {
+                project.Title = Session["Title"].ToString();
+            }
+            if (Session["Desc"] != null)
+            {
+                project.Description = Session["Desc"].ToString();
+            }         
+            return View(project);
         }
 
         // POST: Project/Create
@@ -59,8 +68,31 @@ namespace ProjectManager.Controllers
         [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProjectID,Title,Description,YearID,CourseID,StudentID")] Project project, string[] selectedKeywords)
+        public ActionResult Create([Bind(Include = "ProjectID,Title,Description,YearID,CourseID,StudentID")] Project project,
+            string[] selectedKeywords, string CreateStudent, string CreateYear, string CreateCourse, string CreateKeyword)
         {
+            if (!string.IsNullOrEmpty(CreateStudent))
+            {
+                SaveSession(project);
+                return RedirectToAction("Create", "Student");
+            }
+            if (!string.IsNullOrEmpty(CreateYear))
+            {
+                SaveSession(project);
+                return RedirectToAction("Create", "Years");
+            }
+            if (!string.IsNullOrEmpty(CreateCourse))
+            {
+                SaveSession(project);
+                return RedirectToAction("Create", "Course");
+            }
+            if (!string.IsNullOrEmpty(CreateKeyword))
+            {
+                SaveSession(project);
+                return RedirectToAction("Create", "Keywords");
+            }
+
+
             if (selectedKeywords != null)
             {
                 project.Keywords = new List<Keyword>();
@@ -74,7 +106,8 @@ namespace ProjectManager.Controllers
             {
                 db.Projects.Add(project);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                DeleteSession();
+                return RedirectToAction("Index", "Course");
             }
             PopulateAssignedKeywordData(project);
             ViewBag.StudentID = new SelectList(db.Students, "StudentID", "FirstName", project.StudentID);
@@ -168,6 +201,18 @@ namespace ProjectManager.Controllers
             db.Projects.Remove(project);
             db.SaveChanges();
             return RedirectToAction("Details", "Course", new { id = project.CourseID });
+        }
+
+        public void SaveSession(Project project)
+        {
+            Session["Title"] = project.Title;
+            Session["Desc"] = project.Description;         
+        }
+
+        public void DeleteSession()
+        {
+            Session.Remove("Title");
+            Session.Remove("Desc");
         }
 
         protected override void Dispose(bool disposing)

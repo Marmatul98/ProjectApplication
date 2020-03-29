@@ -22,14 +22,8 @@
                 <ul class="nav navbar-nav">
                     @{
                         if (User.Identity.IsAuthenticated)
-                        {
-                            <li>@Html.ActionLink("Students", "Index", "Students")</li>
-                            <li>@Html.ActionLink("Keywords", "Index", "Keywords")</li>
-                            <li>@Html.ActionLink("Projects", "Index", "Projects")</li>
-                            <li>@Html.ActionLink("Years", "Index", "Years")</li>
-                            <li>@Html.ActionLink("Courses", "Index", "Course")</li>
+                        {                                               
                             <li>@Html.ActionLink("Log out", "Logout", "Login")</li>
-                            // <li><a href="/Login/Logout">Log out</a></li>
                         }
                         else
                         {

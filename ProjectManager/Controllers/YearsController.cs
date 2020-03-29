@@ -57,7 +57,7 @@ namespace ProjectManager.Controllers
             {
                 db.Years.Add(year);
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Create", "Project");
             }
 
             return View(year);
